@@ -1,0 +1,14 @@
+= Latches
+
+A latch works similar to a barrier in the sense that it also makes a group of threads wait until it reaches its terminal
+state. Once a latch reaches its terminal state, it lets all threads pass through. Unlike a barrier, it is a one-time object.
+Once it has reached its terminal state, it cannot be reset and reused. A latch can be used in situations where a number of
+activities cannot proceed until a certain number of one-time activities have completed. For example, a service should not
+start until all services that it depends on have started.
+
+The CountDownLatch class in the java.util.concurrent package provides the implementation of a latch. It is initialized to
+a count using its constructor. All threads that call the await() method of the latch object are blocked until the latch’s
+countDown() method is called as many times as its count is set. When the number of calls to the countDown() method is the
+same as its count, it reaches its terminal state, and all blocked threads are released. Once a latch reaches its terminal
+state, its await() method returns immediately. You can think of the count that is set for the latch as the same as the
+number of events that a group of thread will wait to occur. Each occurrence of an event will call its countDown() method.

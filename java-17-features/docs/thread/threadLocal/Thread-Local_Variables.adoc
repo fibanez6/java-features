@@ -1,0 +1,22 @@
+= Thread-Local Variables
+
+A thread-local variable provides a way to maintain a separate value for a variable for each thread. The ThreadLocal<T>
+class in the java.lang package provides the implementation of a thread-local variable. It has five methods:
+
+* T get()
+* protected T initialValue()
+* void remove()
+* void set(T value)
+* static <S> ThreadLocal<S> withInitial(Supplier<? extends S> supplier)
+
+The get() and set() methods are used to get and set the value for a thread-local variable, respectively. The initialValue()
+method is used to set the initial value of the variable, and it has a protected access. To use it, you need to subclass the
+ThreadLocal class and override this method. You can remove the value by using the remove() method. The withInitial() method
+lets you create a ThreadLocal with an initial value.
+
+
+The typical use of a thread-local variable is to store user ID, transaction ID, or transaction context for a thread.
+The thread sets those values in the beginning, and any code during the execution of that thread can use those values.
+Sometimes, a thread may start child threads that may need to use the value set for a thread-local variable in the parent
+thread. You can achieve this by using an object of the InheritableThreadLocal<T> class, which is inherited from the ThreadLocal
+class. The child thread inherits its initial value from the parent thread. However, the child thread can set its own value using the set() method.

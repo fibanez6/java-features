@@ -1,0 +1,36 @@
+= CAS
+
+Compare And Swap is an internal instruction to maintain lock-free synchronization for single atomic variables.
+
+CAS is based on three operands: a memory location M, an expected old value V, and a new value N. If the memory location
+M contains a value V, CAS updates it atomically to N; otherwise, it does not do anything. CAS always returns the current
+value at the location M that existed before the CAS operation started. The pseudocode for CAS is as follows:
+
+```java
+CAS(M, V, N) {
+    currentValueAtM = get the value at Location M;
+    if (currentValueAtM == V) {
+        set value at M to N;
+    }
+    return currentValueAtM;
+}}
+```
+The CAS instruction is lock-free. It is directly supported in most modern computer hardware. However, CAS is not always
+guaranteed to succeed in a multi-threaded environment. CAS takes an optimistic approach by assuming that there are no
+other threads updating the value at location M; if location M contains value V, update it to N; if the value at location
+M is not V, do not do anything. Therefore, if multiple threads attempt to update the value at location M to different
+values simultaneously, only one thread will succeed, and the others will fail.
+
+The synchronization using locks takes a pessimistic approach by assuming that other threads may be working with location
+M and acquires a lock before it starts working at location M, so that other threads will not access location M while one
+is working with it. In case CAS fails, the caller thread may try the action again or give up; the caller thread using CAS
+never blocks. However, in the case of synchronization using a lock, the caller thread may have to be suspended and resumed
+if it could not acquire the lock. Using synchronization, you also run the risk of a deadlock, a livelock, and other
+synchronization-related failures.
+
+Atomic variable classes are named like _AtomicXxx_ and can be used to execute multiple instructions on a single variable
+atomically without using any lock. Here, _Xxx_ is replaced with different words to indicate different classes that are used
+for different purposes; for example, the _AtomicInteger_ class is used to represent an int variable, which is supposed to
+be manipulated atomically. Twelve classes in the Java class library support read-modify-write operations on a single
+variable atomically. They are in the _java.util.concurrent.atomic_ package. They can be categorized in four categories,
+which are discussed in the following sections.

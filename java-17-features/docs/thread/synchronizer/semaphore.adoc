@@ -1,0 +1,23 @@
+= Semaphores
+
+A semaphore is used to control the number of threads that can access a resource. A synchronized block also controls the
+access to a resource that is the critical section. So, how is a semaphore different from a synchronized block? A
+_synchronized_ block allows only one thread to access a resource (a critical section), whereas a semaphore allows N
+threads (N can be any positive number) to access a resource.
+
+If N is set to one, a semaphore can act as a synchronized block to allow a thread to have mutually exclusive access to a
+resource. A semaphore maintains a number of virtual permits. To access a resource, a thread acquires a permit, and it
+releases the permit when it is done with the resource. If a permit is not available, the requesting thread is blocked
+until a permit becomes available. You can think of a semaphore’s permit as a token.
+
+Another constructor for the Semaphore class takes fairness as the second argument:
+```java
+Semaphore s = new Semaphores(MAX_PERMITS);
+    // <- No a fair semaphore
+Semaphore s = new Semaphores(MAX_PERMITS, true);
+    // <- A fair semaphore
+```
+
+The fairness of a semaphore has the same meaning as that for locks. If you create a fair semaphore, in the situation of
+multiple threads asking for permits, the semaphore will guarantee first in, first out (FIFO). That is, the thread that
+asked for the permit first will get the permit first.

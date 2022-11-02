@@ -1,0 +1,46 @@
+= The Fork/Join Framework
+
+The fork/join framework is an implementation of the executor service whose focus is to solve those problems efficiently,
+which may use the divide-and-conquer algorithm by taking advantage of the multiple processors or multiple cores on a machine.
+The framework helps solve the problems that involve parallelism. Typically, the fork/join framework is suitable in a situation where
+
+* A task can be divided in multiple subtasks that can be executed in parallel.
+* When subtasks are finished, the partial results can be combined to get the final result.
+
+The fork/join framework creates a pool of threads to execute the subtasks. When a thread is waiting on a subtask to finish,
+the framework uses that thread to execute other pending subtasks of other threads. The technique of an idle thread executing
+other threads’ task is called work-stealing. The framework uses the work-stealing algorithm to enhance the performance.
+
+The following four classes in the java.util.concurrent package are central to learning the fork/join framework:
+
+* ForkJoinPool
+* ForkJoinTask<V>
+* RecursiveAction
+* RecursiveTask<V>
+
+An instance of the ForkJoinPool class represents a thread pool. An instance of the ForkJoinTask class represents a task.
+The ForkJoinTask class is an abstract class. It has two concrete subclasses: RecursiveAction and RecursiveTask.
+Java 8 added an abstract subclass of the ForkJoinTask class that is called CountedCompleter<T> . The framework supports
+two types of tasks:
+
+* A task that does not yield a result and a task that yields a result. An instance of the RecursiveAction class represents a task that does not yield a result.
+* An instance of the RecursiveTask class represents a task that yields a result.
+
+A CountedCompleter task may or may not yield a result. Both classes, RecursiveAction and RecursiveTask, provide an abstract
+compute() method. Your class whose object represents a fork/join task should inherit from one of these classes and provide
+an implementation for the compute() method . Typically, the logic inside the compute() method is written similar to the following:
+
+```java
+if (Task is small) {
+    Solve the task directly.
+} else {
+    Divide the task into subtasks.
+    Launch the subtasks asynchronously (the fork stage).
+    Wait for the subtasks to finish (the join stage).
+    Combine the results of all subtasks.
+}
+```
+The following two methods of the ForkJoinTask class provide two important features during a task execution:
+
+* The fork() method launches a new subtask from a task for an asynchronous execution.
+* The join() method lets a task wait for another task to complete.

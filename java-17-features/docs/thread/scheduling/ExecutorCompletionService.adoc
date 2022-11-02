@@ -1,0 +1,30 @@
+= Executor Completion Service
+
+In the previous sections, I explained how to fetch the result of a task execution using a Future object. To fetch the
+result of a submitted task, you must keep the reference of the Future object returned from the executor. However, if you
+have a number of tasks that you have submitted to an executor and you want to know their results as they become available,
+you need to use the completion service of the executor. It is represented by an instance of the CompletionService<V> interface.
+It combines an executor and a blocking queue to hold the completed task references. The ExecutorCompletionService<V> class
+is a concrete implementation of the CompletionService<V> interface. Here are the steps to use it:
+
+* The executor completion service uses a blocking queue internally to hold the completed task. You can also use your own
+blocking queue to hold the completed tasks.
+
+---
+
+1. Create an executor object:
+```java
+ExecutorService exec = Executors.newScheduledThreadPool(3);
+```
+
+[start=2]
+2. Create an object of the ExecutorCompletionService class, passing the executor created in the previous step to its constructor:
+```java
+ExecutorCompletionService CompletionService = new ExecutorCompletionService(exec);
+```
+
+[start=3]
+3. The take() method of the completion service returns the reference of a completed task. It blocks if no completed task
+is present. If you do not want to wait, in case there is no completed task, you can use the poll() method, which returns
+null if there is no completed task in the queue. Both methods remove the completed task from the queue if they find one.
+

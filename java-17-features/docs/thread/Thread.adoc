@@ -1,0 +1,43 @@
+= Threads
+
+* **Green Thread Model: **
+The Thread which is managed by JVM, without taking underlying OS support is called Green Thread. Very few OS like Sun
+Solaris provide support for green thread model. It is deprecated and not recommended to use.
+
+* *Native OS Model:*
+The Thread which is manged by the JVM with the help of underlying OS is called Native OS Model.
+All windows OS provide support for native OS model.
+
+
+== Green Thread
+
+Green threads or virtual threads are threads that are scheduled by a runtime library or virtual
+machine (VM) instead of natively by the underlying operating system (OS). Green threads emulate multithreaded
+environments without relying on any native OS abilities, and they are managed in user space instead of kernel space,
+enabling them to work in environments that do not have native thread support.
+
+Green threads are significantly faster than native threads when having more active threads than processors
+
+* In this model, threads are completely managed by JVM **without any kind of underlying OS support**.
+* These threads are implemented at the application level and managed in user space.
+* They are also called cooperative (user-level) threads.
+* Only one green thread can be processed at a time. Hence, this model is considered the *many-to-one model*.
+Because of this, green threads can run on multi-core processors but cannot take advantage of multiple cores.
+* Synchronization and resource sharing is easier for green threads and hence execution time is also less.
+* Sun Solaris OS provides support for Green Thread model.
+
+== Native Thread
+
+* Threads in this model are managed by the JVM *with the help of underlying OS support*.
+* These threads are implemented at the OS level (by using OS multithreading API) and managed in kernel space.
+* They are also called non-green (kernel-level) threads.
+* Multiple native threads can coexist. Therefore it is also called *many-to-many model*. Such characteristic of this model
+allows it to take complete advantage of multi-core processors and execute threads on separate individual cores concurrently.
+* Since this model allows multiple threads to be executed simultaneously, thread synchronization and resource sharing
+become complicated. This increases execution time of threads.
+* All the windows based OS provide support for Native Thread model.
+
+---
+
+* https://www.geeksforgeeks.org/green-vs-native-threads-and-deprecated-methods-in-java/
+* https://openjdk.java.net/jeps/425
