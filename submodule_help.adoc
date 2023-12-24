@@ -7,5 +7,5 @@ git submodule update --remote --merge
 
 If you want to update your submodules to the latest commit available from their remote, you will need to do this directly in the submodules.
 ----
-git submodule foreach git pull origin master
+git submodule foreach git pull origin main
 ----
