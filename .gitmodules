@@ -4,3 +4,6 @@
 [submodule "java-11-features"]
 	path = java-11-features
 	url = https://github.com/fibanez6/java-11-features.git
+[submodule "java-21-features"]
+	path = java-21-features
+	url = https://github.com/fibanez6/java-21-features.git

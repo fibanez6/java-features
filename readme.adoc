@@ -5,3 +5,4 @@
 
 * link:./java-11-features[Java 11 Features]
 * link:./java-17-features[Java 17 Features]
+* link:./java-21-features[Java 21 Features]
