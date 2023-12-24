@@ -1,0 +1,6 @@
+[submodule "java-17-features"]
+	path = java-17-features
+	url = https://github.com/fibanez6/java-17-features.git
+[submodule "java-11-features"]
+	path = java-11-features
+	url = https://github.com/fibanez6/java-11-features.git
