@@ -1,0 +1,11 @@
+= Submodule
+
+Tells Git that you want your submodules to each check out the commit already specified in the index of the superproject.
+----
+git submodule update --remote --merge
+----
+
+If you want to update your submodules to the latest commit available from their remote, you will need to do this directly in the submodules.
+----
+git submodule foreach git pull origin master
+----

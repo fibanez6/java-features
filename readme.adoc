@@ -2,9 +2,7 @@
 
 :url-repo: https://github.com/fibanez6
 
-include::java-21-features/readme.adoc[]
-
-include::java-17-features/readme.adoc[]
-
-include::java-11-features/readme.adoc[]
+* link:https://github.com/fibanez6/java-21-features/blob/main/readme.adoc[java-21-features]
+* link:https://github.com/fibanez6/java-17-features/blob/main/readme.adoc[java-17-features]
+* link:https://github.com/fibanez6/java-11-features/blob/main/Readme.adoc[java-11-features]
 
